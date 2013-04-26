@@ -13,16 +13,17 @@
 #include <iostream>
 #include "rb_tree.h"
 #include "rb_vertex.h"
-
+#include "src/rb_tree.cpp"
+#include "src/rb_vertex.cpp"
 
 extern "C"
 {
     int main(int argc, char** argv) {
         std::function<bool (int, int)> test_func = [] (int val1, int val2) { return val1 < val2; };
-        rb_vertex<int>(3, NULL);
+     //   rb_vertex<int>(3, NULL);
 
 
-    //    rb_tree<int>* tree = new rb_tree<int>(test_func);
+        rb_tree<int>* tree = new rb_tree<int>(test_func);
 
 /*
         rb_tree<int, std::function<bool (int, int)>>* tree;
