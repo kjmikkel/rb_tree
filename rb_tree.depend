@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1366965907 source:/home/mikkel/Programming/rb_tree/main.cpp
+	"rb_tree.h"
+	"rb_vertex.h"
+
+1366965891 /home/mikkel/Programming/rb_tree/include/rb_tree.h
+
+1366965660 /home/mikkel/Programming/rb_tree/include/rb_vertex.h
+
+1366965875 source:/home/mikkel/Programming/rb_tree/src/rb_tree.cpp
+	"rb_tree.h"
+
+1366965682 source:/home/mikkel/Programming/rb_tree/src/rb_vertex.cpp
+	"rb_vertex.h"
+
