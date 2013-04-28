@@ -15,11 +15,15 @@ class rb_tree
         void insert(T in_value);
         void remove(T out_value);
 
-
         bool test(T val1, T val2);
+
+        // Diagnostic methods
+        int max_depth();
+        bool black_balance();
+
     protected:
     private:
-        std::function<bool (T, T)> func;
+        std::function<bool (T, T)> compare;
         rb_vertex<T>* root;
 
         // Left and right rotate
@@ -29,6 +33,8 @@ class rb_tree
         // Insert and remove fixup
         void insert_fixup(rb_vertex<T>* current_vertex);
         void remove_fixup(rb_vertex<T>* current_vertex);
+
+
 };
 
 #endif // RB_TREE_H

@@ -28,6 +28,10 @@ class rb_vertex
         rb_vertex<T>* get_right_child();
         void set_right_child(rb_vertex<T>* child);
 
+        // Diagnostic methods
+        int depth();
+        int black_balance();
+
     protected:
     private:
 
