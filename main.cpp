@@ -19,6 +19,11 @@
 extern "C"
 {
     int main(int argc, char** argv) {
+
+        // Ignore me!
+        argc = 0;
+
+
         std::function<bool (int, int)> test_func = [] (int val1, int val2) { return val1 < val2; };
      //   rb_vertex<int>(3, NULL);
 
@@ -32,11 +37,11 @@ extern "C"
        // rb_tree<int> tree(test_func);
 /*
         if (tree->test(1, 2)) {
-            std::cout << "Hello";
+            std::cout << "Hello" << std::endl;
             char test;
             std::cin >> test;
         }
-  */
+*/
      //   return true;
 
     }

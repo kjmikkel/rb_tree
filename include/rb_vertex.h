@@ -10,11 +10,23 @@ class rb_vertex
         rb_vertex<T>(T in_value, rb_vertex* in_parent);
         virtual ~rb_vertex();
 
-        void set_colour(enum_colour in_colour);
+        // Colour gettters and setters
         enum_colour get_colour();
+        void set_colour(enum_colour in_colour);
 
-        rb_vertex* get_parent();
-        void set_parent(rb_vertex* vertex);
+        // Parents getters and setters
+        rb_vertex<T>* get_parent();
+        void set_parent(rb_vertex<T>* vertex);
+
+        // Value getter
+        T get_value();
+
+        // Child getters and setters
+        rb_vertex<T>* get_left_child();
+        void set_left_child(rb_vertex<T>* child);
+
+        rb_vertex<T>* get_right_child();
+        void set_right_child(rb_vertex<T>* child);
 
     protected:
     private:
