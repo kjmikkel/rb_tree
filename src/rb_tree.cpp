@@ -68,8 +68,53 @@ void rb_tree<T>:: right_rotate(rb_vertex<T>* current_vertex) {
 
  // Insert and remove fixup
 template<typename T>
-void rb_tree<T>::insert_fixup(rb_vertex<T>* current_vertex) {
+void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
 
+    rb_vertex<T>* parent = new_vertex->get_parent();
+    rb_vertex<T>* grandparent = 0;
+    rb_vertex<T>* current_vertex = 0;
+
+    while(parent.get_colour() = RED) {
+        grandparent = parent->get_parent();
+
+        if (grandparent->get_left_child() == parent) {
+            current_vertex = grandparent->get_right_child();
+
+            // Case 1
+            if (current_vertex->get_colour() == RED) {
+                parent->set_colour(BLACK);
+                current_vertex->set_colour(BLACK);
+                grandparent->set_colour(RED);
+                new_vertex = grandparent;
+            } else if (new_vertex == parent->get_right_child()) {
+                // Case 2
+                current_vertex = parent;
+                rb_tree::left_rotate(new_vertex);
+            }
+            // Case 3
+            parent->set_colour(BLACK);
+            grandparent->set_colour(RED);
+            rb_tree::right_rotate(grandparent);
+        } else {
+            current_vertex = grandparent->get_left_child();
+
+            // Case 1
+            if (current_vertex->get_colour() == RED) {
+                parent->set_colour(BLACK);
+                current_vertex->set_colour(BLACK);
+                grandparent->set_colour(RED);
+                new_vertex = grandparent;
+            } else if (new_vertex == parent->get_left_child()) {
+                // Case 2
+                current_vertex = parent;
+                rb_tree::right_rotate(new_vertex);
+            }
+            // Case 3
+            parent->set_colour(BLACK);
+            grandparent->set_colour(RED);
+            rb_tree::left_rotate(grandparent);
+        }
+    }
 }
 
 template<typename T>
