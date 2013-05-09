@@ -65,9 +65,9 @@ void rb_tree<T>::remove(T out_value) {
 template<typename T>
 void rb_tree<T>:: left_rotate(rb_vertex<T>* current_vertex) {
 
-    rb_vertex<T>* y = current_vertex->get_right_child();
-    rb_vertex<T>* left = y->get_left_child();
-    rb_vertex<T>* parent = current_vertex->get_parent();
+    // y in Corman
+    rb_vertex<T>* right_subtree = current_vertex->get_right_child();
+    rb_vertex<T>* left = right_subtree->get_left_child();
 
     current_vertex->set_right_child(left);
 
@@ -75,27 +75,27 @@ void rb_tree<T>:: left_rotate(rb_vertex<T>* current_vertex) {
         left->set_parent(current_vertex);
     }
 
-    y->set_parent(parent);
+    rb_vertex<T>* parent = current_vertex->get_parent();
+    right_subtree->set_parent(parent);
 
     if (parent == 0) {
-        root = y;
+        root = right_subtree;
     } else {
         if (current_vertex == parent->get_left_child()) {
-            parent->set_left_child(y);
+            parent->set_left_child(right_subtree);
         } else {
-            parent->set_right_child(y);
+            parent->set_right_child(right_subtree);
         }
     }
-    y->set_left_child(current_vertex);
-    current_vertex->set_parent(y);
+    right_subtree->set_left_child(current_vertex);
+    current_vertex->set_parent(right_subtree);
 }
 
 template<typename T>
 void rb_tree<T>:: right_rotate(rb_vertex<T>* current_vertex) {
 
-    rb_vertex<T>* y = current_vertex->get_left_child();
-    rb_vertex<T>* right = y->get_right_child();
-    rb_vertex<T>* parent = current_vertex->get_parent();
+    rb_vertex<T>* left_subtree = current_vertex->get_left_child();
+    rb_vertex<T>* right = left_subtree->get_right_child();
 
     current_vertex->set_left_child(right);
 
@@ -103,19 +103,20 @@ void rb_tree<T>:: right_rotate(rb_vertex<T>* current_vertex) {
         right->set_parent(current_vertex);
     }
 
-    y->set_parent(parent);
+    rb_vertex<T>* parent = current_vertex->get_parent();
+    left_subtree->set_parent(parent);
 
     if (parent == 0) {
-        root = y;
+        root = left_subtree;
     } else {
         if (current_vertex == parent->get_right_child()) {
-            parent->set_right_child(y);
+            parent->set_right_child(left_subtree);
         } else {
-            parent->set_left_child(y);
+            parent->set_left_child(left_subtree);
         }
     }
-    y->set_right_child(current_vertex);
-    current_vertex->set_parent(y);
+    left_subtree->set_right_child(current_vertex);
+    current_vertex->set_parent(left_subtree);
 
 }
 
@@ -147,15 +148,18 @@ void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
                 current_vertex->set_colour(BLACK);
                 grandparent->set_colour(RED);
                 new_vertex = grandparent;
-            } else if (new_vertex == parent->get_right_child()) {
-                // Case 2
-                current_vertex = parent;
-                rb_tree::left_rotate(new_vertex);
+            } else {
+
+                if (new_vertex == parent->get_right_child()) {
+                    // Case 2
+                    new_vertex = parent;
+                    rb_tree::left_rotate(new_vertex);
+                }
+                // Case 3
+                parent->set_colour(BLACK);
+                grandparent->set_colour(RED);
+                rb_tree::right_rotate(grandparent);
             }
-            // Case 3
-            parent->set_colour(BLACK);
-            grandparent->set_colour(RED);
-            rb_tree::right_rotate(grandparent);
         } else {
             current_vertex = grandparent->get_left_child();
             current_vertex_exist = current_vertex != 0;
@@ -166,15 +170,18 @@ void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
                 current_vertex->set_colour(BLACK);
                 grandparent->set_colour(RED);
                 new_vertex = grandparent;
-            } else if (new_vertex == parent->get_left_child()) {
-                // Case 2
-                current_vertex = parent;
-                rb_tree::right_rotate(new_vertex);
+            } else {
+
+                if (new_vertex == parent->get_left_child()) {
+                    // Case 2
+                    new_vertex = parent;
+                    rb_tree::right_rotate(new_vertex);
+                }
+                // Case 3
+                parent->set_colour(BLACK);
+                grandparent->set_colour(RED);
+                rb_tree::left_rotate(grandparent);
             }
-            // Case 3
-            parent->set_colour(BLACK);
-            grandparent->set_colour(RED);
-            rb_tree::left_rotate(grandparent);
         }
     }
 
@@ -205,5 +212,5 @@ bool rb_tree<T>::black_balance() {
 
 template<typename T>
 void rb_tree<T>::print_tree() {
-    root->print_tree("","");
+    root->print_tree("Root","");
 }

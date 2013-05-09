@@ -31,30 +31,39 @@ extern "C"
         char test;
 
         tree->insert(1);
+        tree->print_tree();
         std::cout << "1" << std::endl;
 
         tree->insert(2);
+        tree->print_tree();
         std::cout << "2" << std::endl;
 
         tree->insert(3);
+        tree->print_tree();
         std::cout << "3" << std::endl;
 
         tree->insert(4);
+        tree->print_tree();
         std::cout << "4" << std::endl;
 
         tree->insert(5);
+        tree->print_tree();
         std::cout << "5" << std::endl;
 
         tree->insert(6);
+        tree->print_tree();
         std::cout << "6" << std::endl;
 
         tree->insert(7);
+        tree->print_tree();
         std::cout << "7" << std::endl;
 
         tree->insert(8);
+        tree->print_tree();
         std::cout << "8" << std::endl;
 
         tree->insert(9);
+        tree->print_tree();
         std::cout << "9" << std::endl;
 
         tree->insert(10);
