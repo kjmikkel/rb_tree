@@ -18,10 +18,12 @@ rb_tree<T>::~rb_tree()
 
 template<typename T>
 void rb_tree<T>::insert(T in_value) {
-
+    // This is 'z' in Cormen
     rb_vertex<T>* new_vertex = new rb_vertex<T>(in_value);
 
+    // This iss 'y' in Cormen
     rb_vertex<T>* current_vertex = 0;
+    // This is 'x' in Cormen
     rb_vertex<T>* parent = root;
 
     while (parent != 0) {
@@ -36,8 +38,10 @@ void rb_tree<T>::insert(T in_value) {
 
     new_vertex->set_parent(current_vertex);
 
-    if (new_vertex == 0) {
+    if (current_vertex == 0) {
         root = new_vertex;
+        root->set_colour(BLACK);
+        return;
     } else {
         if (compare(new_vertex->get_value(), current_vertex->get_value())) {
             current_vertex->set_left_child(new_vertex);
@@ -59,10 +63,57 @@ void rb_tree<T>::remove(T out_value) {
 template<typename T>
 void rb_tree<T>:: left_rotate(rb_vertex<T>* current_vertex) {
 
+    rb_vertex<T>* y = current_vertex->get_right_child();
+    rb_vertex<T>* left = y->get_left_child();
+    rb_vertex<T>* parent = current_vertex->get_parent();
+
+    current_vertex->set_right_child(left);
+
+    if (left != 0) {
+        left->set_parent(current_vertex);
+    }
+
+    y->set_parent(parent);
+
+    if (parent == 0) {
+        root = y;
+    } else {
+        if (current_vertex == parent->get_left_child()) {
+            parent->set_left_child(y);
+        } else {
+            parent->set_right_child(y);
+        }
+    }
+    y->set_left_child(current_vertex);
+    current_vertex->set_parent(y);
 }
 
 template<typename T>
 void rb_tree<T>:: right_rotate(rb_vertex<T>* current_vertex) {
+
+    rb_vertex<T>* y = current_vertex->get_left_child();
+    rb_vertex<T>* right = y->get_right_child();
+    rb_vertex<T>* parent = current_vertex->get_parent();
+
+    current_vertex->set_left_child(right);
+
+    if (right != 0) {
+        right->set_parent(current_vertex);
+    }
+
+    y->set_parent(parent);
+
+    if (parent == 0) {
+        root = y;
+    } else {
+        if (current_vertex == parent->get_right_child()) {
+            parent->set_right_child(y);
+        } else {
+            parent->set_left_child(y);
+        }
+    }
+    y->set_right_child(current_vertex);
+    current_vertex->set_parent(y);
 
 }
 
@@ -71,17 +122,25 @@ template<typename T>
 void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
 
     rb_vertex<T>* parent = new_vertex->get_parent();
-    rb_vertex<T>* grandparent = 0;
+    rb_vertex<T>* grandparent = parent->get_parent();
     rb_vertex<T>* current_vertex = 0;
+    bool current_vertex_exist;
 
-    while(parent.get_colour() = RED) {
+    // If the grandparent does not exist, then we return
+    if (grandparent == 0) {
+        root->set_colour(BLACK);
+        return;
+    }
+
+    while(parent->get_colour() == RED) {
         grandparent = parent->get_parent();
 
         if (grandparent->get_left_child() == parent) {
             current_vertex = grandparent->get_right_child();
+            current_vertex_exist = current_vertex != 0;
 
             // Case 1
-            if (current_vertex->get_colour() == RED) {
+            if (current_vertex_exist && current_vertex->get_colour() == RED) {
                 parent->set_colour(BLACK);
                 current_vertex->set_colour(BLACK);
                 grandparent->set_colour(RED);
@@ -97,9 +156,10 @@ void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
             rb_tree::right_rotate(grandparent);
         } else {
             current_vertex = grandparent->get_left_child();
+            current_vertex_exist = current_vertex != 0;
 
             // Case 1
-            if (current_vertex->get_colour() == RED) {
+            if (current_vertex_exist && current_vertex->get_colour() == RED) {
                 parent->set_colour(BLACK);
                 current_vertex->set_colour(BLACK);
                 grandparent->set_colour(RED);
@@ -115,6 +175,8 @@ void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
             rb_tree::left_rotate(grandparent);
         }
     }
+
+    root->set_colour(BLACK);
 }
 
 template<typename T>

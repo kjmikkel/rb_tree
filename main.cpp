@@ -25,45 +25,45 @@ extern "C"
 
 
         std::function<bool (int, int)> test_func = [] (int val1, int val2) { return val1 < val2; };
-     //   rb_vertex<int>(3, NULL);
-
 
         rb_tree<int>* tree = new rb_tree<int>(test_func);
 
-/*
-        rb_tree<int, std::function<bool (int, int)>>* tree;
-        tree = new rb_tree<int, std::function<bool (int, int)>>(test_func);
-  */
-       // rb_tree<int> tree(test_func);
-/*
-        if (tree->test(1, 2)) {
-            std::cout << "Hello" << std::endl;
-            char test;
-            std::cin >> test;
-        }
-*/
+        char test;
+
+        tree->insert(1);
+        std::cout << "1" << std::endl;
+        printf("lalalala");
+
+        tree->insert(2);
+        std::cout << "2" << std::endl;
+
+        tree->insert(3);
+        std::cout << "3" << std::endl;
+
+        tree->insert(4);
+        std::cout << "4" << std::endl;
+
+        tree->insert(5);
+        std::cout << "5" << std::endl;
+
+        tree->insert(6);
+        std::cout << "6" << std::endl;
+
+        tree->insert(7);
+        std::cout << "7" << std::endl;
+
+        tree->insert(8);
+        std::cout << "8" << std::endl;
+
+        tree->insert(9);
+        std::cout << "9" << std::endl;
+
+        tree->insert(10);
+        std::cout << "10" << std::endl;
+        std::cin >> test;
+
+
      //   return true;
 
-    }
-
-
-    // A function adding two integers and returning the result
-    int SampleAddInt(int i1, int i2)
-    {
-        return i1 + i2;
-    }
-
-    // A function doing nothing ;)
-    void SampleFunction1()
-    {
-        // insert code here
-    }
-
-    // A function always returning zero
-    int SampleFunction2()
-    {
-        // insert code here
-
-        return 0;
     }
 }

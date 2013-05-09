@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1367169501 source:/home/mikkel/Programming/rb_tree/main.cpp
+1368132463 source:/home/mikkel/Programming/rb_tree/main.cpp
 	<functional>
 	<iostream>
 	"rb_tree.h"
@@ -11,27 +11,27 @@
 	<functional>
 	"rb_vertex.h"
 
-1367186390 /home/mikkel/Programming/rb_tree/include/rb_vertex.h
+1367356764 /home/mikkel/Programming/rb_tree/include/rb_vertex.h
 	"enum.h"
 
-1367186421 source:/home/mikkel/Programming/rb_tree/src/rb_tree.cpp
+1368134111 source:/home/mikkel/Programming/rb_tree/src/rb_tree.cpp
 	<functional>
 	"rb_tree.h"
 	"rb_vertex.h"
 
-1367186997 source:/home/mikkel/Programming/rb_tree/src/rb_vertex.cpp
+1367356867 source:/home/mikkel/Programming/rb_tree/src/rb_vertex.cpp
 	<algorithm>
 	"rb_vertex.h"
 	"enum.h"
 
 1366970873 /home/mikkel/Programming/rb_tree/include/enum.h
 
-1367188503 /home/mikkel/Programming/rb_tree/src/rb_tree.cpp
+1368134111 /home/mikkel/Programming/rb_tree/src/rb_tree.cpp
 	<functional>
 	"rb_tree.h"
 	"rb_vertex.h"
 
-1367186997 /home/mikkel/Programming/rb_tree/src/rb_vertex.cpp
+1367356867 /home/mikkel/Programming/rb_tree/src/rb_vertex.cpp
 	<algorithm>
 	"rb_vertex.h"
 	"enum.h"

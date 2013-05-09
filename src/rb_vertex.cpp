@@ -3,13 +3,13 @@
 #include "enum.h"
 
 template<class T>
-rb_vertex<T>::rb_vertex(T in_value, rb_vertex* in_parent)
+rb_vertex<T>::rb_vertex(T in_value)
 {
     value = in_value;
     colour = RED;
     left_child = 0;
     right_child = 0;
-    parent = in_parent;
+    parent = 0;
 }
 
 template<class T>

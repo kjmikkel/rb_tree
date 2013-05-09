@@ -7,7 +7,7 @@ template<typename T>
 class rb_vertex
 {
     public:
-        rb_vertex<T>(T in_value, rb_vertex* in_parent);
+        rb_vertex<T>(T in_value);
         virtual ~rb_vertex();
 
         // Colour gettters and setters
