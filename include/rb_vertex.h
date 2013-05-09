@@ -31,6 +31,7 @@ class rb_vertex
         // Diagnostic methods
         int depth();
         int black_balance();
+        void print_tree(std::string side, std::string tabulator);
 
     protected:
     private:

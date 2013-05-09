@@ -20,6 +20,8 @@ class rb_tree
         // Diagnostic methods
         int max_depth();
         bool black_balance();
+        void print_tree();
+
 
     protected:
     private:
@@ -33,7 +35,6 @@ class rb_tree
         // Insert and remove fixup
         void insert_fixup(rb_vertex<T>* current_vertex);
         void remove_fixup(rb_vertex<T>* current_vertex);
-
 
 };
 

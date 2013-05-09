@@ -32,7 +32,6 @@ extern "C"
 
         tree->insert(1);
         std::cout << "1" << std::endl;
-        printf("lalalala");
 
         tree->insert(2);
         std::cout << "2" << std::endl;
@@ -60,6 +59,7 @@ extern "C"
 
         tree->insert(10);
         std::cout << "10" << std::endl;
+        tree->print_tree();
         std::cin >> test;
 
 

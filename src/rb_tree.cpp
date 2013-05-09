@@ -1,4 +1,6 @@
 #include <functional>
+#include <iostream>
+#include <string>
 
 #include "rb_tree.h"
 #include "rb_vertex.h"
@@ -199,4 +201,9 @@ bool rb_tree<T>::test(T val1, T val2)
 template<typename T>
 bool rb_tree<T>::black_balance() {
     return root->black_balance() != -1;
+}
+
+template<typename T>
+void rb_tree<T>::print_tree() {
+    root->print_tree("","");
 }

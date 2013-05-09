@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include "rb_vertex.h"
 #include "enum.h"
 
@@ -113,5 +114,19 @@ int rb_vertex<T>::black_balance() {
     // If we reach this point, then we can be sure that there is an imbalance, and we return the error number
     else {
         return -1;
+    }
+}
+
+template<class T>
+void rb_vertex<T>::print_tree(std::string side, std::string tabulator) {
+
+    std::cout << tabulator << side << ": Value: " << value << ", Color: " << colour << std::endl;
+
+    if (left_child != 0) {
+        left_child->print_tree("Left", tabulator + "\t");
+    }
+
+    if (right_child != 0) {
+        right_child->print_tree("Right", tabulator + "\t");
     }
 }
