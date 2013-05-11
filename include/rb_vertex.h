@@ -16,6 +16,7 @@ class rb_vertex
 
         // Parents getters and setters
         rb_vertex<T>* get_parent();
+        rb_vertex<T>* get_grandparent();
         void set_parent(rb_vertex<T>* vertex);
 
         // Value getter
@@ -32,6 +33,7 @@ class rb_vertex
         int depth();
         int black_balance();
         void print_tree(std::string side, std::string tabulator);
+        bool double_red_children();
 
     protected:
     private:

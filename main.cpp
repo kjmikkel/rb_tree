@@ -23,7 +23,6 @@ extern "C"
         // Ignore me!
         argc = 0;
 
-
         std::function<bool (int, int)> test_func = [] (int val1, int val2) { return val1 < val2; };
 
         rb_tree<int>* tree = new rb_tree<int>(test_func);
@@ -31,47 +30,51 @@ extern "C"
         char test;
 
         tree->insert(1);
-        tree->print_tree();
         std::cout << "1" << std::endl;
+        tree->print_tree();
 
         tree->insert(2);
-        tree->print_tree();
         std::cout << "2" << std::endl;
+        tree->print_tree();
 
         tree->insert(3);
-        tree->print_tree();
         std::cout << "3" << std::endl;
+        tree->print_tree();
 
         tree->insert(4);
-        tree->print_tree();
         std::cout << "4" << std::endl;
+        tree->print_tree();
 
         tree->insert(5);
-        tree->print_tree();
         std::cout << "5" << std::endl;
+        tree->print_tree();
 
         tree->insert(6);
-        tree->print_tree();
         std::cout << "6" << std::endl;
+        tree->print_tree();
 
         tree->insert(7);
-        tree->print_tree();
         std::cout << "7" << std::endl;
+        tree->print_tree();
 
         tree->insert(8);
-        tree->print_tree();
         std::cout << "8" << std::endl;
+        tree->print_tree();
 
         tree->insert(9);
-        tree->print_tree();
         std::cout << "9" << std::endl;
+        tree->print_tree();
 
         tree->insert(10);
         std::cout << "10" << std::endl;
-        tree->print_tree();
+        tree->print_complete_status();
+
+        tree->insert(-1);
+        std::cout << "-1" << std::endl;
+        tree->print_complete_status();
+
+
         std::cin >> test;
-
-
      //   return true;
 
     }

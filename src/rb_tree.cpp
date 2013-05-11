@@ -124,65 +124,75 @@ void rb_tree<T>:: right_rotate(rb_vertex<T>* current_vertex) {
 template<typename T>
 void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
 
-    rb_vertex<T>* parent = new_vertex->get_parent();
-    rb_vertex<T>* grandparent = parent->get_parent();
     rb_vertex<T>* current_vertex = 0;
     bool current_vertex_exist;
 
     // If the grandparent does not exist, then we return
-    if (grandparent == 0) {
+    if (new_vertex->get_grandparent() == 0) {
         root->set_colour(BLACK);
         return;
     }
 
-    while(parent->get_colour() == RED) {
-        grandparent = parent->get_parent();
+    while(new_vertex->get_parent() != 0 && new_vertex->get_parent()->get_colour() == RED) {
 
-        if (grandparent->get_left_child() == parent) {
-            current_vertex = grandparent->get_right_child();
+        if (new_vertex->get_parent() == new_vertex->get_grandparent()->get_left_child()) {
+            current_vertex = new_vertex->get_grandparent()->get_right_child();
             current_vertex_exist = current_vertex != 0;
 
             // Case 1
             if (current_vertex_exist && current_vertex->get_colour() == RED) {
-                parent->set_colour(BLACK);
+                new_vertex->get_parent()->set_colour(BLACK);
                 current_vertex->set_colour(BLACK);
-                grandparent->set_colour(RED);
-                new_vertex = grandparent;
+                if (new_vertex->get_grandparent() != 0) {
+                    new_vertex->get_grandparent()->set_colour(RED);
+                    new_vertex = new_vertex->get_grandparent();
+                }
             } else {
 
-                if (new_vertex == parent->get_right_child()) {
+                if (new_vertex == new_vertex->get_parent()->get_right_child()) {
                     // Case 2
-                    new_vertex = parent;
+                    new_vertex = new_vertex->get_parent();
+
                     rb_tree::left_rotate(new_vertex);
                 }
                 // Case 3
-                parent->set_colour(BLACK);
-                grandparent->set_colour(RED);
-                rb_tree::right_rotate(grandparent);
+                new_vertex->get_parent()->set_colour(BLACK);
+                if (new_vertex->get_grandparent() != 0) {
+                    new_vertex->get_grandparent()->set_colour(RED);
+                    rb_tree::right_rotate(new_vertex->get_grandparent());
+                }
             }
         } else {
-            current_vertex = grandparent->get_left_child();
+            current_vertex = new_vertex->get_grandparent()->get_left_child();
             current_vertex_exist = current_vertex != 0;
 
             // Case 1
             if (current_vertex_exist && current_vertex->get_colour() == RED) {
-                parent->set_colour(BLACK);
+                new_vertex->get_parent()->set_colour(BLACK);
                 current_vertex->set_colour(BLACK);
-                grandparent->set_colour(RED);
-                new_vertex = grandparent;
+                if (new_vertex->get_grandparent() != 0) {
+                    new_vertex->get_grandparent()->set_colour(RED);
+                    new_vertex = new_vertex->get_grandparent();
+                }
             } else {
 
-                if (new_vertex == parent->get_left_child()) {
+                if (new_vertex == new_vertex->get_parent()->get_left_child()) {
                     // Case 2
-                    new_vertex = parent;
+                    new_vertex = new_vertex->get_parent();
+
                     rb_tree::right_rotate(new_vertex);
                 }
                 // Case 3
-                parent->set_colour(BLACK);
-                grandparent->set_colour(RED);
-                rb_tree::left_rotate(grandparent);
+                new_vertex->get_parent()->set_colour(BLACK);
+                if (new_vertex->get_grandparent() != 0) {
+                    new_vertex->get_grandparent()->set_colour(RED);
+                    rb_tree::left_rotate(new_vertex->get_grandparent());
+                }
             }
         }
+
+
+
     }
 
     root->set_colour(BLACK);
@@ -213,4 +223,17 @@ bool rb_tree<T>::black_balance() {
 template<typename T>
 void rb_tree<T>::print_tree() {
     root->print_tree("Root","");
+}
+
+template<typename T>
+bool rb_tree<T>::check_red_black_property() {
+    root->double_red_children();
+}
+
+template<typename T>
+void rb_tree<T>::print_complete_status() {
+    print_tree();
+    std::cout << "Depth: " << max_depth() << std::endl;
+    std::cout << "Balanced: " << (black_balance() ? "Yes" : "No") << std::endl;
+    std::cout << "Red-Black property: " << (check_red_black_property() ? "No Violation found" : "Violation found") << std::endl;
 }

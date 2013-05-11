@@ -21,7 +21,8 @@ class rb_tree
         int max_depth();
         bool black_balance();
         void print_tree();
-
+        void print_complete_status();
+        bool check_red_black_property();
 
     protected:
     private:
