@@ -13,7 +13,7 @@ class rb_tree
 
         // Insert and delete
         void insert(T in_value);
-        void remove(T out_value);
+        void remove(rb_vertex<T>* out_value);
 
         bool test(T val1, T val2);
 
@@ -36,6 +36,11 @@ class rb_tree
         // Insert and remove fixup
         void insert_fixup(rb_vertex<T>* current_vertex);
         void remove_fixup(rb_vertex<T>* current_vertex);
+
+        rb_vertex<T>* Tree_Minimum(rb_vertex<T>* min_subj);
+        rb_vertex<T>* Tree_Maximum(rb_vertex<T>* max_subj);
+
+        rb_vertex<T>* Tree_Successor(rb_vertex<T>* subject);
 
 };
 

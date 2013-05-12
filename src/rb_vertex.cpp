@@ -104,7 +104,7 @@ int rb_vertex<T>::black_balance() {
 
     int personal_black = 0;
 
-    if (colour = BLACK) {
+    if (colour == BLACK) {
         personal_black = 1;
     }
 
@@ -152,6 +152,8 @@ bool rb_vertex<T>::double_red_children() {
 
     // Functors! Becuase why write the same exact code 4 times when you only need to do it once!
     std::function<bool (rb_vertex<T>*)> check_children = [] (rb_vertex<T>* child) {
+        bool return_val;
+
         if (child != 0) {
             return (bool)child->double_red_children();
         } else {

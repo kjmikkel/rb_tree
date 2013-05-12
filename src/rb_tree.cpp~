@@ -56,42 +56,8 @@ void rb_tree<T>::insert(T in_value) {
 }
 
 template<typename T>
-void rb_tree<T>::remove(rb_vertex<T>* out_value) {
+void rb_tree<T>::remove(T out_value) {
 
-    rb_vertex<T>* successor;
-    rb_vertex<T>* child;
-
-    if (out_value->get_left_child() != 0 or out_value->get_left_child() != 0) {
-        successor = out_value;
-    } else {
-        successor = Tree_Successor(out_value);
-    }
-
-    if (successor->get_left_child() != 0) {
-        child = successor->get_left_child();
-    } else {
-        child = successor->get_right_child();
-    }
-
-    child->set_parent(successor->get_parent());
-
-    if (successor->get_parent() == 0) {
-        root = child;
-    } else {
-        if (successor == successor->get_parent()->get_left_child()) {
-            successor->get_parent()->set_left_child(child);
-        } else {
-            successor->get_parent()->set_right_child(child);
-        }
-    }
-
-    if (child != out_value) {
-        out_value->set_value(successor->get_value());
-    }
-
-    if (successor->get_colour() == BLACK) {
-        remove_fixup(child);
-    }
 }
 
 
@@ -99,7 +65,7 @@ void rb_tree<T>::remove(rb_vertex<T>* out_value) {
 template<typename T>
 void rb_tree<T>:: left_rotate(rb_vertex<T>* current_vertex) {
 
-    // y in Cormen
+    // y in Corman
     rb_vertex<T>* right_subtree = current_vertex->get_right_child();
     rb_vertex<T>* left = right_subtree->get_left_child();
 
@@ -237,25 +203,6 @@ void rb_tree<T>::remove_fixup(rb_vertex<T>* current_vertex) {
 
 }
 
-// Help functions
-template<typename T>
-rb_vertex<T>* Tree_Minimum(rb_vertex<T>* min_subj) {
-    while(min_subj->get_left_child() != 0) {
-        min_subj = min_subj->get_left_child();
-    }
-
-    return min_subj;
-}
-
-template<typename T>
-rb_vertex<T>* Tree_Maximum(rb_vertex<T>* max_subj) {
-    while(max_subj->get_right_child() != 0) {
-        max_subj = max_subj->get_right_child();
-    }
-
-    return max_subj;
-}
-
 // Diagnostic methods
 template<typename T>
 int rb_tree<T>::max_depth() {
@@ -280,23 +227,7 @@ void rb_tree<T>::print_tree() {
 
 template<typename T>
 bool rb_tree<T>::check_red_black_property() {
-    return root->double_red_children();
-}
-
-template<typename T>
-rb_vertex<T>* Tree_Successor(rb_vertex<T>* subject) {
-    if (subject->get_right_child() != 0) {
-        return Tree_Minimum(subject);
-    }
-
-    rb_vertex<T>* temp = subject->get_parent();
-
-    while(temp != 0 and subject == temp->get_right_child()) {
-        subject = temp;
-        temp = temp->get_parent();
-    }
-
-    return temp;
+    root->double_red_children();
 }
 
 template<typename T>
