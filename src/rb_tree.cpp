@@ -23,7 +23,7 @@ void rb_tree<T>::insert(T in_value) {
     // This is 'z' in Cormen
     rb_vertex<T>* new_vertex = new rb_vertex<T>(in_value);
 
-    // This iss 'y' in Cormen
+    // This is 'y' in Cormen
     rb_vertex<T>* current_vertex = 0;
     // This is 'x' in Cormen
     rb_vertex<T>* parent = root;
@@ -57,11 +57,15 @@ void rb_tree<T>::insert(T in_value) {
 
 template<typename T>
 void rb_tree<T>::remove(rb_vertex<T>* out_value) {
+    //out_value is y in Corman
 
+    // this is y in Corman
     rb_vertex<T>* successor;
+
+    // this is x in Corman
     rb_vertex<T>* child;
 
-    if (out_value->get_left_child() != 0 or out_value->get_left_child() != 0) {
+    if (out_value->get_left_child() == 0 or out_value->get_right_child() == 0) {
         successor = out_value;
     } else {
         successor = Tree_Successor(out_value);
@@ -224,9 +228,6 @@ void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
                 }
             }
         }
-
-
-
     }
 
     root->set_colour(BLACK);
@@ -234,7 +235,64 @@ void rb_tree<T>::insert_fixup(rb_vertex<T>* new_vertex) {
 
 template<typename T>
 void rb_tree<T>::remove_fixup(rb_vertex<T>* current_vertex) {
+    // current_vertex is x in Corman
 
+    // this is w in Corman
+    rb_vertex<T>* child;
+
+    while (current_vertex != root && current_vertex->get_colour() == BLACK) {
+        if (current_vertex == current_vertex->get_parent()->get_left_child()) {
+            child = current_vertex->get_parent()->get_right_child();
+            if (child->get_colour() == RED) {
+                child.set_colour(BLACK);
+                current_vertex->get_parent()->set_colour(RED);
+                left_rotate(current_vertex->get_parent);
+                child = current_vertex->get_parent->get_right_child();
+            }
+            if (child->get_left_child()->get_colour() == BLACK && child->get_right_child()->get_colour() == BLACK) {
+                child->set_colour(RED);
+                current_vertex = current_vertex->get_parent();
+            } else {
+                if (child->get_right_child()->get_colour() == BLACK) {
+                    child->get_left_child()->set_colour(BLACK);
+                    child->set_colour(RED);
+                    right_rotate(child);
+                    child = current_vertex->get_parent()->get_right_child();
+                }
+                child->set_colour(current_vertex->get_parent()->get_colour());
+                current_vertex->get_parent()->set_colour(BLACK);
+                child->get_right_child()->set_colour(BLACK);
+                left_rotate(current_vertex->get_parent());
+                current_vertex = root;
+            }
+        } else {
+            child = current_vertex->get_parent()->get_left_child();
+            if (child->get_colour() == RED) {
+                child.set_colour(BLACK);
+                current_vertex->get_parent()->set_colour(RED);
+                right_rotate(current_vertex->get_parent);
+                child = current_vertex->get_parent->get_left_child();
+            }
+            if (child->get_left_child()->get_colour() == BLACK && child->get_right_child()->get_colour() == BLACK) {
+                child->set_colour(RED);
+                current_vertex = current_vertex->get_parent();
+            } else {
+                if (child->get_left_child()->get_colour() == BLACK) {
+                    child->get_right_child()->set_colour(BLACK);
+                    child->set_colour(RED);
+                    left_rotate(child);
+                    child = current_vertex->get_parent()->get_left_child();
+                }
+                child->set_colour(current_vertex->get_parent()->get_colour());
+                current_vertex->get_parent()->set_colour(BLACK);
+                child->get_left_child()->set_colour(BLACK);
+                right_rotate(current_vertex->get_parent());
+                current_vertex = root;
+            }
+        }
+    }
+
+    current_vertex->set_colour(BLACK);
 }
 
 // Help functions
